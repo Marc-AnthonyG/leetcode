@@ -1,5 +1,14 @@
 package main
 
+import "fmt"
+
+func main() {
+  rootNode := TreeNode{Val: 1}
+  test:= TreeNode{Val: 2}
+  rootNode2 := TreeNode{1, nil, &test}
+	fmt.Println(isSameTree(&rootNode, &rootNode2))
+}
+
 // Definition for a binary tree
 type TreeNode struct {
 	Val   int
@@ -15,22 +24,7 @@ func isSameTree(p *TreeNode, q *TreeNode) bool {
 		return false
 	}
 
-  //Check to the left
-	if p.Left == nil && q.Left != nil {
-		return false
-	} else if !isSameTree(p.Left, q.Left) {
-		return false
-	}
-
-
-  //Check to the right
-	if p.Right == nil {
-		return q.Right == nil
-	} else if !isSameTree(p.Right, q.Right) {
-		return false
-	}
-
-	return true
+	return isSameTree(p.Left, q.Left) && isSameTree(p.Right, q.Right) 
 }
 
 /**

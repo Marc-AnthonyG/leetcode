@@ -5,37 +5,35 @@ import (
 )
 
 func main() {
-  //7,12 e,a ebcbbec_e_cabb_a_cecbbcbe
+	//7,12 e,a ebcbbec_e_cabb_a_cecbbcbe
 	fmt.Print(validPalindrome("ebcbbececabbacecbbcbe"))
-  fmt.Println(" = true")
+	fmt.Println(" = true")
+
+	fmt.Print(validPalindrome("abc"))
+	fmt.Println(" = false")
 }
 
 func validPalindrome(s string) bool {
-	size := len(s);
-	if size <= 2 {
-		return true;
-	}
-
+  var size int;
+  size = len(s)/2
 
 	for i := 0; i < size/2; i++ {
 		if s[i] != s[size-1-i] {
-      return (validPalindromeWithoutDeletion(s[i:size-1-i]) || validPalindromeWithoutDeletion(s[i+1:size-i]))
+      return (validPalindromeWithoutDeletion(s, i, size-2-i) || validPalindromeWithoutDeletion(s, i+1, size-1-i ))
 		}
 	}
 
 	return true
 }
 
-func validPalindromeWithoutDeletion(s string) bool {
-	size := len(s);
-	if size <= 1 {
-		return true;
-	}
-
-	for i := 0; i < size/2; i++ {
-		if s[i] != s[size-1-i] {
-			return false;
-		}
+func validPalindromeWithoutDeletion(s string, left int, right int) bool {
+	for left < right {
+    if s[left] != s[right]{
+      return false
+    }
+    
+    left++
+    right--
 	}
 
 	return true
@@ -55,7 +53,7 @@ func validPalindromeWithoutDeletion(s string) bool {
 
   ABCCBBA-> ABBA same case ACBBA -> ABBA
 
-  ebcbbececabbacecbbcbe  -> ebcbb_e_cecabbace_c_bbcbe  
+  ebcbbececabbacecbbcbe  -> ebcbb_e_cecabbace_c_bbcbe
 
   si on delete c ca marche pas
 */
